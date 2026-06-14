@@ -1,0 +1,210 @@
+﻿@model List<VehicleInspectionSystem.Web.Models.AppointmentDto>
+
+@{
+    ViewData["Title"] = "Записи на ТО";
+}
+
+<div class="container-fluid px-4 mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Записи на технічний огляд</h2>
+
+        <a class="btn btn-primary"
+           asp-controller="Appointments"
+           asp-action="Create">
+            Створити запис
+        </a>
+    </div>
+
+    <form method="get"
+          asp-controller="Appointments"
+          asp-action="Index"
+          class="mb-4">
+
+        <div class="row g-3 align-items-end">
+
+            <div class="col-md-3">
+                <label class="form-label fw-semibold">Статус</label>
+                <select name="status" class="form-select">
+                    <option value="">Усі</option>
+
+                    @if (ViewBag.Status == "Новий")
+                    {
+                        <option value="Новий" selected>Новий</option>
+                    }
+                    else
+                    {
+                        <option value="Новий">Новий</option>
+                    }
+
+                    @if (ViewBag.Status == "Підтверджено")
+                    {
+                        <option value="Підтверджено" selected>Підтверджено</option>
+                    }
+                    else
+                    {
+                        <option value="Підтверджено">Підтверджено</option>
+                    }
+
+                    @if (ViewBag.Status == "Відхилено")
+                    {
+                        <option value="Відхилено" selected>Відхилено</option>
+                    }
+                    else
+                    {
+                        <option value="Відхилено">Відхилено</option>
+                    }
+
+                    @if (ViewBag.Status == "Виконано")
+                    {
+                        <option value="Виконано" selected>Виконано</option>
+                    }
+                    else
+                    {
+                        <option value="Виконано">Виконано</option>
+                    }
+
+                    @if (ViewBag.Status == "Скасовано")
+                    {
+                        <option value="Скасовано" selected>Скасовано</option>
+                    }
+                    else
+                    {
+                        <option value="Скасовано">Скасовано</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label fw-semibold">Дата від</label>
+                <input type="date"
+                       name="dateFrom"
+                       value="@ViewBag.DateFrom"
+                       class="form-control" />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label fw-semibold">Дата до</label>
+                <input type="date"
+                       name="dateTo"
+                       value="@ViewBag.DateTo"
+                       class="form-control" />
+            </div>
+
+            <div class="col-md-3 d-grid">
+                <button type="submit" class="btn btn-primary">
+                    Застосувати
+                </button>
+            </div>
+
+            <div class="col-md-3 d-grid">
+                <a asp-controller="Appointments"
+                   asp-action="Index"
+                   class="btn btn-secondary">
+                    Очистити
+                </a>
+            </div>
+
+        </div>
+    </form>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Клієнт</th>
+                        <th>Телефон</th>
+                        <th>Email</th>
+                        <th>ТЗ</th>
+                        <th>Держ. номер</th>
+                        <th>Дата запису</th>
+                        <th>Статус</th>
+                        <th width="300">Дії</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.ClientName</td>
+                            <td>@item.Phone</td>
+                            <td>@item.Email</td>
+                            <td>@item.VehicleBrand @item.VehicleModel</td>
+                            <td>@item.PlateNumber</td>
+                            <td>@item.AppointmentDate.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td>
+                                @{
+                                    var statusClass = item.Status switch
+                                    {
+                                        "Новий" => "bg-warning text-dark",
+                                        "Підтверджено" => "bg-success",
+                                        "Відхилено" => "bg-danger",
+                                        "Виконано" => "bg-primary",
+                                        "Скасовано" => "bg-secondary",
+                                        _ => "bg-secondary"
+                                    };
+                                }
+
+                                <span class="badge @statusClass">
+                                    @item.Status
+                                </span>
+                            </td>
+
+                            <td>
+                                <div class="d-flex gap-1 flex-wrap">
+
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Operator"))
+                                    {
+                                        <form asp-action="UpdateStatus" method="post">
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                            <input type="hidden" name="status" value="Підтверджено" />
+                                            <button class="btn btn-success btn-sm">
+                                                Підтвердити
+                                            </button>
+                                        </form>
+
+                                        <form asp-action="UpdateStatus" method="post">
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                            <input type="hidden" name="status" value="Відхилено" />
+                                            <button class="btn btn-warning btn-sm">
+                                                Відхилити
+                                            </button>
+                                        </form>
+
+                                        <form asp-action="UpdateStatus" method="post">
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                            <input type="hidden" name="status" value="Виконано" />
+                                            <button class="btn btn-info btn-sm">
+                                                Виконано
+                                            </button>
+                                        </form>
+                                    }
+
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <form asp-action="Delete"
+                                              method="post"
+                                              onsubmit="return confirm('Видалити цей запис?');">
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                            <button class="btn btn-danger btn-sm">
+                                                Видалити
+                                            </button>
+                                        </form>
+                                    }
+
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>

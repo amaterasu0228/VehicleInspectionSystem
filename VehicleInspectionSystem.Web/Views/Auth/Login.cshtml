@@ -1,0 +1,41 @@
+﻿@model VehicleInspectionSystem.Web.Models.LoginViewModel
+
+<div class="container mt-5" style="max-width: 450px;">
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            <h3 class="mb-4 text-center">Вхід у систему</h3>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger">
+                    @ViewBag.Error
+                </div>
+            }
+
+            <form asp-controller="Auth" asp-action="Login" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input asp-for="Email" class="form-control" type="email" required />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Пароль</label>
+                    <input asp-for="Password" class="form-control" type="password" required />
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">
+                    Увійти
+                </button>
+
+                <div class="text-center mt-3">
+                    <span>Немає акаунта?</span>
+                    <a asp-controller="Auth"
+                       asp-action="Register">
+                        Зареєструватися
+                    </a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

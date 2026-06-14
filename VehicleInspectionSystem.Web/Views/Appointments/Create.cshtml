@@ -1,0 +1,103 @@
+﻿@model VehicleInspectionSystem.Web.Models.AppointmentDto
+
+@{
+    ViewData["Title"] = "Створити запис";
+}
+
+<div class="container mt-4" style="max-width: 900px;">
+
+    <h2 class="mb-4">Запис на технічний огляд</h2>
+
+    <form asp-controller="Appointments" asp-action="Create" method="post">
+
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header fw-semibold">
+                Дані клієнта
+            </div>
+
+            <div class="card-body">
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <label class="form-label">ПІБ клієнта</label>
+                        <input asp-for="ClientName" class="form-control" required />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">Телефон</label>
+                        <input asp-for="Phone" class="form-control" required />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">Email</label>
+                        <input asp-for="Email" type="email" class="form-control" required />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header fw-semibold">
+                Транспортний засіб
+            </div>
+
+            <div class="card-body">
+                <div class="row g-3">
+
+                    <div class="col-md-4">
+                        <label class="form-label">Марка</label>
+                        <input asp-for="VehicleBrand" class="form-control" required />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Модель</label>
+                        <input asp-for="VehicleModel" class="form-control" required />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Державний номер</label>
+                        <input asp-for="PlateNumber" class="form-control" required />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header fw-semibold">
+                Дата та час
+            </div>
+
+            <div class="card-body">
+                <div class="row g-3">
+
+                    <div class="col-md-4">
+                        <label class="form-label">Дата та час запису</label>
+                        <input asp-for="AppointmentDate"
+                               asp-format="{0:yyyy-MM-ddTHH:mm}"
+                               type="datetime-local"
+                               step="60"
+                               class="form-control"
+                               required />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-success">
+                Записатись
+            </button>
+
+            <a asp-controller="Appointments"
+               asp-action="Index"
+               class="btn btn-secondary">
+                Назад
+            </a>
+        </div>
+
+    </form>
+
+</div>

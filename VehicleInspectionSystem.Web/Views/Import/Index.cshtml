@@ -1,0 +1,18 @@
+﻿<h2>Імпорт Excel</h2>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-warning">
+        @ViewBag.Message
+    </div>
+}
+
+<form method="post" enctype="multipart/form-data" asp-controller="Import" asp-action="Index">
+    <div class="mb-3">
+        <label class="form-label">Оберіть Excel-файл</label>
+        <input type="file" name="file" class="form-control" accept=".xlsx" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Імпортувати</button>
+    <a asp-controller="Inspections" asp-action="Index" class="btn btn-secondary">Назад до журналу</a>
+</form>

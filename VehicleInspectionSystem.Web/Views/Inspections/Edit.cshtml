@@ -1,0 +1,116 @@
+﻿@model VehicleInspectionSystem.Web.Models.InspectionDto
+
+<div class="container mt-4">
+    <h2>Редагування запису</h2>
+
+    <form asp-action="Edit" asp-controller="Inspections" method="post" class="mt-3">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="row g-3">
+            <div class="col-md-3">
+                <label class="form-label">Відповідність ТЗ</label>
+                <input class="form-control" asp-for="VehicleCompliance" />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">№ документа</label>
+                <input class="form-control" asp-for="DocumentNumber" />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Серія, номер бланку</label>
+                <input class="form-control" asp-for="BlankNumber" />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Статус</label>
+                <input class="form-control" asp-for="Status" />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Дата підпису</label>
+                <input class="form-control" asp-for="SignDate" type="date" />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Час підпису</label>
+                <input class="form-control" asp-for="SignTime" type="time" />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Тип ТЗ</label>
+                <input class="form-control" asp-for="VehicleType" />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Марка</label>
+                <input class="form-control" asp-for="Brand" />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Модель</label>
+                <input class="form-control" asp-for="Model" />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Категорія</label>
+                <input class="form-control" asp-for="Category" />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Держ. номер</label>
+                <input class="form-control" asp-for="PlateNumber" />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">VIN</label>
+                <input class="form-control" asp-for="VIN" />
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Власник</label>
+                <input class="form-control" asp-for="Owner" />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Телефон власника</label>
+                <input class="form-control" asp-for="OwnerPhone" />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Тип власника</label>
+                <input class="form-control" asp-for="OwnerType" />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Періодичність ОТК</label>
+                <input class="form-control" asp-for="InspectionPeriod" />
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Дата наступного ОТК</label>
+                <input class="form-control" asp-for="NextInspectionDate" type="date" />
+            </div>
+
+            <div class="col-md-3 form-check mt-5">
+                <input class="form-check-input" asp-for="IsSubjectToInspection" />
+                <label class="form-check-label">Підлягає ОТК</label>
+            </div>
+
+            <div class="col-md-3 form-check mt-5">
+                <input class="form-check-input" asp-for="IsInternational" />
+                <label class="form-check-label">Міжнародний ТО</label>
+            </div>
+
+            <div class="col-md-3 form-check mt-5">
+                <input class="form-check-input" asp-for="IsCanceled" />
+                <label class="form-check-label">Анульований</label>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-success">Зберегти</button>
+            <a asp-controller="Inspections" asp-action="Index" class="btn btn-secondary">Назад</a>
+        </div>
+    </form>
+</div>

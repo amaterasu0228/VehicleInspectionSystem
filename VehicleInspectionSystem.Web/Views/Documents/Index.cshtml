@@ -1,0 +1,164 @@
+﻿@model List<VehicleInspectionSystem.Web.Models.DocumentDto>
+
+@{
+    ViewData["Title"] = "Документи";
+}
+
+<div class="container-fluid px-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Документи</h2>
+    </div>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="card shadow-sm border-0 mb-4">
+
+            <div class="card-body">
+
+                <form asp-controller="Documents"
+                      asp-action="Upload"
+                      method="post"
+                      enctype="multipart/form-data">
+
+                    <div class="row g-3">
+
+                        <div class="col-md-4">
+                            <label class="form-label">
+                                Назва документа
+                            </label>
+
+                            <input type="text"
+                                   name="title"
+                                   class="form-control"
+                                   required />
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">
+                                Категорія
+                            </label>
+
+                            <input type="text"
+                                   name="category"
+                                   class="form-control"
+                                   required />
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">
+                                Файл
+                            </label>
+
+                            <input type="file"
+                                   name="file"
+                                   class="form-control"
+                                   required />
+                        </div>
+
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button type="submit"
+                                    class="btn btn-primary w-100">
+                                Завантажити
+                            </button>
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    }
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-body p-0">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Назва</th>
+                        <th>Категорія</th>
+                        <th>Файл</th>
+                        <th>Дата</th>
+                        <th width="220"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var document in Model)
+                        {
+                            <tr>
+
+                                <td>@document.Id</td>
+
+                                <td>@document.Title</td>
+
+                                <td>@document.Category</td>
+
+                                <td>@document.FileName</td>
+
+                                <td>
+                                    @document.UploadedAt.ToString("dd.MM.yyyy HH:mm")
+                                </td>
+
+                                <td>
+
+                                    <div class="d-flex gap-2">
+
+                                        <a class="btn btn-success btn-sm"
+                                           asp-controller="Documents"
+                                           asp-action="Download"
+                                           asp-route-id="@document.Id">
+                                            Завантажити
+                                        </a>
+
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <form asp-controller="Documents"
+                                                  asp-action="Delete"
+                                                  method="post">
+
+                                                <input type="hidden"
+                                                       name="id"
+                                                       value="@document.Id" />
+
+                                                <button type="submit"
+                                                        class="btn btn-danger btn-sm">
+                                                    Видалити
+                                                </button>
+                                            </form>
+                                        }
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center py-4">
+                                Документи відсутні
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

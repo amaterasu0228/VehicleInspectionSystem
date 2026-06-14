@@ -1,0 +1,103 @@
+﻿@model List<VehicleInspectionSystem.Web.Models.UserDto>
+
+@{
+    ViewData["Title"] = "Користувачі";
+}
+
+<div class="container-fluid px-4">
+
+    <h2 class="mb-4">Користувачі системи</h2>
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-body p-0">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Роль</th>
+                        <th width="250"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+
+                            <td>@user.Id</td>
+
+                            <td>@user.Email</td>
+
+                            <td>
+                                <form asp-action="UpdateRole"
+                                      method="post"
+                                      class="d-flex gap-2">
+
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@user.Id" />
+
+                                    <select name="role"
+                                            class="form-select">
+
+                                        <option selected="@(user.Role == "Admin")">
+                                            Admin
+                                        </option>
+
+                                        <option selected="@(user.Role == "Operator")">
+                                            Operator
+                                        </option>
+
+                                        <option selected="@(user.Role == "Expert")">
+                                            Expert
+                                        </option>
+
+                                        <option selected="@(user.Role == "Manager")">
+                                            Manager
+                                        </option>
+
+                                        <option selected="@(user.Role == "Client")">
+                                            Client
+                                        </option>
+
+                                    </select>
+
+                                    <button class="btn btn-primary">
+                                        Зберегти
+                                    </button>
+
+                                </form>
+                            </td>
+
+                            <td>
+                                <form asp-action="Delete"
+                                      method="post">
+
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@user.Id" />
+
+                                    <button class="btn btn-danger">
+                                        Видалити
+                                    </button>
+
+                                </form>
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,32 @@
+﻿@model VehicleInspectionSystem.Web.Models.InspectionDto
+
+<div class="container mt-4">
+    <h2>Деталі технічного огляду</h2>
+
+    <table class="table table-bordered mt-3">
+        <tr><th>№ документа</th><td>@Model.DocumentNumber</td></tr>
+        <tr><th>Відповідність ТЗ</th><td>@Model.VehicleCompliance</td></tr>
+        <tr><th>Серія, номер бланку</th><td>@Model.BlankNumber</td></tr>
+        <tr><th>Статус</th><td>@Model.Status</td></tr>
+        <tr><th>Дата підпису</th><td>@Model.SignDate.ToString("dd.MM.yyyy")</td></tr>
+        <tr><th>Час підпису</th><td>@Model.SignTime</td></tr>
+        <tr><th>Тип ТЗ</th><td>@Model.VehicleType</td></tr>
+        <tr><th>Марка</th><td>@Model.Brand</td></tr>
+        <tr><th>Модель</th><td>@Model.Model</td></tr>
+        <tr><th>Категорія</th><td>@Model.Category</td></tr>
+        <tr><th>Державний номер</th><td>@Model.PlateNumber</td></tr>
+        <tr><th>VIN</th><td>@Model.VIN</td></tr>
+        <tr><th>Власник</th><td>@Model.Owner</td></tr>
+        <tr><th>Телефон власника</th><td>@Model.OwnerPhone</td></tr>
+        <tr><th>Тип власника</th><td>@Model.OwnerType</td></tr>
+        <tr><th>Підлягає ОТК</th><td>@(Model.IsSubjectToInspection ? "Так" : "Ні")</td></tr>
+        <tr><th>Періодичність</th><td>@Model.InspectionPeriod</td></tr>
+        <tr><th>Дата наступного ОТК</th><td>@(Model.NextInspectionDate?.ToString("dd.MM.yyyy") ?? "-")</td></tr>
+        <tr><th>Міжнародний ТО</th><td>@(Model.IsInternational ? "Так" : "Ні")</td></tr>
+        <tr><th>Анульований</th><td>@(Model.IsCanceled ? "Так" : "Ні")</td></tr>
+    </table>
+
+    <a class="btn btn-secondary" asp-controller="Inspections" asp-action="Index">
+        Назад до журналу
+    </a>
+</div>

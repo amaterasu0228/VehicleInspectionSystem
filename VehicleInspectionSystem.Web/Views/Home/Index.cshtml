@@ -1,0 +1,27 @@
+﻿@model List<VehicleInspectionSystem.Web.Models.InspectionDto>
+
+<h2>Техогляди</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Марка</th>
+            <th>Модель</th>
+            <th>Номер</th>
+            <th>Статус</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Brand</td>
+                <td>@item.Model</td>
+                <td>@item.PlateNumber</td>
+                <td>@item.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>
